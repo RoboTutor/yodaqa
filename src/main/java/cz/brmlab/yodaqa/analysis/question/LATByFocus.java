@@ -1,7 +1,5 @@
 package cz.brmlab.yodaqa.analysis.question;
 
-import java.util.regex.Pattern;
-
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
@@ -14,18 +12,15 @@ import org.slf4j.LoggerFactory;
 
 import cz.brmlab.yodaqa.analysis.TreeUtil;
 import cz.brmlab.yodaqa.analysis.answer.SyntaxCanonization;
+import cz.brmlab.yodaqa.model.alpino.type.constituent.NP;
 import cz.brmlab.yodaqa.model.Question.Focus;
 import cz.brmlab.yodaqa.model.TyCor.ImplicitQLAT;
-import cz.brmlab.yodaqa.model.TyCor.QuestionWordLAT;
 import cz.brmlab.yodaqa.model.TyCor.LAT;
+import cz.brmlab.yodaqa.model.TyCor.QuestionWordLAT;
 import cz.brmlab.yodaqa.provider.OpenNlpNamedEntities;
-
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.NN;
 import de.tudarmstadt.ukp.dkpro.core.api.lexmorph.type.pos.POS;
 import de.tudarmstadt.ukp.dkpro.core.api.ner.type.NamedEntity;
-import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
-import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.constituent.NP;
-import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.dependency.NSUBJ;
 
 /**
  * Generate LAT annotations in a QuestionCAS. These are words that should
@@ -44,6 +39,7 @@ public class LATByFocus extends JCasAnnotator_ImplBase {
 		super.initialize(aContext);
 	}
 
+	@Override
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		/* A Focus is also an LAT. */
 		for (Focus focus : JCasUtil.select(jcas, Focus.class)) {

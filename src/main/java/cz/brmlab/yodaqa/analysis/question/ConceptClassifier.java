@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.uima.jcas.JCas;
 
-import cz.brmlab.yodaqa.analysis.rdf.PropertyGloVeScoring;
 import cz.brmlab.yodaqa.model.Question.Concept;
 
 /**
@@ -49,7 +48,7 @@ public class ConceptClassifier {
 	public double calculateProbability(JCas questionView, Concept l) {
 		List<String> qtoks = ConceptGloVeScoring.questionRepr(questionView);
 		List<String> desctoks;
-		if (l.getDescription() != null) {
+		if (false && l.getDescription() != null) {
 			desctoks = ConceptGloVeScoring.tokenize(l.getDescription());
 			l.setRelatedness(ConceptGloVeScoring.getInstance().relatedness(qtoks, desctoks));
 		}
